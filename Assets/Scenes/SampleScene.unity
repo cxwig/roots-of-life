@@ -272,7 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_leftPrefab: {fileID: 3868232274675095781, guid: 08e2f22d97e6ff0418d3c5f25a2c4d83, type: 3}
   m_rightPrefab: {fileID: 4410124011395422157, guid: deba95191c662a54eaba90daa5b7eac7, type: 3}
-  m_downPrefab: {fileID: 907226560814862684, guid: 6c64ed7a3e9031d4789263f74334fac2, type: 3}
+  m_downPrefab: {fileID: 8555147050054501513, guid: 3e5ec35da13fce041940fedfc4fb7ea0, type: 3}
   m_hexagonManager: {fileID: 2111384367}
   m_rootSpawnTime: 1
 --- !u!4 &559915977
