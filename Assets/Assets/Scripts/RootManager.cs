@@ -12,6 +12,8 @@ public class RootManager : MonoBehaviour
     [SerializeField]
     HexagonManager m_hexagonManager;
 
+    float RootSpawnTime { get { return m_rootSpawnTime; } set { m_rootSpawnTime = value; } }
+
     [SerializeField]
     float m_rootSpawnTime = 10.0f;
 
@@ -41,7 +43,7 @@ public class RootManager : MonoBehaviour
     void DetermineGrowthDirectionAndUpdateWeights( RootNode node )
     {
         //TODO
-        node.growthDirection = RootNode.Direction.Left;
+        node.growthDirection = RootNode.Direction.LeftRight;
     }
 
     RootNode SpawnRoot( RootNode parent, RootNode.Direction direction )
@@ -112,6 +114,7 @@ public class RootManager : MonoBehaviour
     void SpawnRoots()
     {
         HashSet<RootNode> newActiveRoots = new HashSet<RootNode> ();
+        HashSet<Vector2Int> mergedRootCheck = new HashSet<Vector2Int>();
         RootNode curNode = null;
         foreach (var root in m_activeRoots) 
         { 
@@ -121,14 +124,20 @@ public class RootManager : MonoBehaviour
 
                 if(curNode != null )
                 {
-                    newActiveRoots.Add( curNode );
+                    if (mergedRootCheck.Add(curNode.endPos))
+                    {
+                        newActiveRoots.Add(curNode);
+                    }
                 }
 
                 curNode = SpawnRoot( root, RootNode.Direction.Right );
 
                 if (curNode != null)
                 {
-                    newActiveRoots.Add(curNode);
+                    if (mergedRootCheck.Add(curNode.endPos))
+                    {
+                        newActiveRoots.Add(curNode);
+                    }
                 }
             }
             else
@@ -137,7 +146,10 @@ public class RootManager : MonoBehaviour
 
                 if (curNode != null)
                 {
-                    newActiveRoots.Add(curNode);
+                    if (mergedRootCheck.Add(curNode.endPos))
+                    {
+                        newActiveRoots.Add(curNode);
+                    }
                 }
             }
         }
