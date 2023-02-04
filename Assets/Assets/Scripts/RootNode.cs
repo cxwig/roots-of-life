@@ -20,5 +20,9 @@ public class RootNode : MonoBehaviour
 
     public Direction growthDirection = Direction.Right;
 
-    bool IsRootEnd() { return children.Count == 0; }
+    public bool IsRootEnd() { return children.Count == 0; }
+
+    public uint directionStreakCounter = 0;
+
+    public Vector2Int startPos, endPos;
 }
