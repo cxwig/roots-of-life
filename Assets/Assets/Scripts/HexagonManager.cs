@@ -4,29 +4,27 @@ using UnityEngine;
 
 public class HexagonManager : MonoBehaviour
 {
-    public GameObject[] hexagonPrefabs;
-    public float spawnTime = 1.0f;
-    public float spawnX = 4.0f;
-    public float hexagonSideLength = 4.0f;
- 
-    private float timeSincePreviousSpawn;
-    private float spawnY = 0.0f;
-    private int hexagonIndex;
-    
-    private void Update()
-    {
-        timeSincePreviousSpawn += Time.deltaTime;
-        if (timeSincePreviousSpawn >= spawnTime)
-        {
-            timeSincePreviousSpawn = 0.0f;
-            SpawnHexagon();
-        }
-    }
+    public GameObject hexagonalTilePrefab;
+    public int mapWidth = 10;
+    public int mapHeight = 10;
+    public float tileRadius = 1.0f;
+    public float tileSpacing = 2.0f;
 
-    private void SpawnHexagon()
+    private Vector2[,] hexagonalTilePositions;
+
+    private void Start()
     {
-        hexagonIndex = Random.Range(0, hexagonPrefabs.Length);
-        Instantiate(hexagonPrefabs[hexagonIndex], new Vector2(spawnX, spawnY), Quaternion.identity);
-        spawnX += hexagonSideLength;
+        hexagonalTilePositions = new Vector2[mapWidth, mapHeight];
+        for (int x = 0; x < mapWidth; x++)
+        {
+            for (int y = 0; y < mapHeight; y++)
+            {
+                float xPos = x * tileRadius * 1.5f;
+                float yPos = y * tileRadius * Mathf.Sqrt(3) + (x % 2 == 0 ? 0 : tileRadius * Mathf.Sqrt(3) / 2);
+                hexagonalTilePositions[x, y] = new Vector2(xPos, yPos);
+                GameObject hexagonalTile = Instantiate(hexagonalTilePrefab, hexagonalTilePositions[x, y], Quaternion.identity);
+                hexagonalTile.transform.position = new Vector3(hexagonalTile.transform.position.x, hexagonalTile.transform.position.y, 0);
+            }
+        }
     }
 }
