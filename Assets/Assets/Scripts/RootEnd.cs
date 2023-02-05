@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RootEnd : MonoBehaviour
 {
-    public float transitionTime = 0.5f;
+    public const float TRANSITION_TIME = 0.5f;
     private float m_elapsedTime;
 
     private bool m_deleteAfterTransition = false;
@@ -29,6 +29,7 @@ public class RootEnd : MonoBehaviour
         m_transitioning = true;
         m_elapsedTime = 0.0f;
         m_destination = destination;
+        m_destination.z = -6.0f;
         m_root = root;  //Could probably just use this as an indicator of deletion
     }
 
@@ -38,7 +39,7 @@ public class RootEnd : MonoBehaviour
         if( m_transitioning )
         {
             m_elapsedTime += Time.deltaTime;
-            if (m_elapsedTime >= transitionTime)
+            if (m_elapsedTime >= TRANSITION_TIME)
             {
                 m_transitioning = false;
                 transform.position = m_destination;
@@ -49,7 +50,7 @@ public class RootEnd : MonoBehaviour
             }
             else
             {
-                transform.position = Vector3.Lerp(transform.position, m_destination, m_elapsedTime / transitionTime);
+                transform.position = Vector3.Lerp(transform.position, m_destination, m_elapsedTime / TRANSITION_TIME * 0.25f);
             }
         }
     }
@@ -66,7 +67,7 @@ public class RootEnd : MonoBehaviour
 
     void OnMouseDown()
     {
-        if(playerController != null) 
+        if(playerController != null && !m_transitioning) 
         {
             playerController.UseActionOn(this);
         }

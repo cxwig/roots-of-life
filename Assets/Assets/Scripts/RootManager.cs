@@ -36,12 +36,12 @@ public class RootManager : MonoBehaviour
         
     }
 
-    public void CreateNewRootEnd( RootNode endNode )
+    public RootEnd CreateNewRootEnd( RootNode endNode )
     {
         GameObject obj = Instantiate( m_rootEndPrefab, m_hexagonManager.GridToWorldPosition(endNode.endPos), Quaternion.identity );
         RootEnd rootEnd = obj.GetComponent<RootEnd>();
         rootEnd.playerController = m_playerController;
-        m_activeRootEnds.Add( endNode, rootEnd );
+        return rootEnd;
     }
 
     public void SpawnInitialRoot( Vector2Int startPosition )
@@ -59,7 +59,8 @@ public class RootManager : MonoBehaviour
         m_activeRoots.Add(curNode);
 
         m_activeRootEnds = new Dictionary<RootNode, RootEnd>();
-        CreateNewRootEnd(curNode);
+        RootEnd rootEnd = CreateNewRootEnd(curNode);
+        m_activeRootEnds.Add(curNode, rootEnd);
     }
 
     void DetermineGrowthDirectionAndUpdateWeights( RootNode node )
@@ -163,9 +164,13 @@ public class RootManager : MonoBehaviour
 
                 if(curNode != null )
                 {
-                    if (mergedRootCheck.Add(curNode.endPos))
+                    if ( !m_hexagonManager.HasBeenTravelled(curNode.endPos) && mergedRootCheck.Add(curNode.endPos))
                     {
                         newActiveRoots.Add(curNode);
+                    }
+                    else
+                    {
+                        m_activeRootEnds[root].MarkForDelete();
                     }
                 }
 
@@ -173,9 +178,13 @@ public class RootManager : MonoBehaviour
 
                 if (curNode != null)
                 {
-                    if (mergedRootCheck.Add(curNode.endPos))
+                    if (!m_hexagonManager.HasBeenTravelled(curNode.endPos) && mergedRootCheck.Add(curNode.endPos))
                     {
                         newActiveRoots.Add(curNode);
+                    }
+                    else
+                    {
+                        m_activeRootEnds[root].MarkForDelete();
                     }
                 }
             }
@@ -185,15 +194,20 @@ public class RootManager : MonoBehaviour
 
                 if (curNode != null)
                 {
-                    if (mergedRootCheck.Add(curNode.endPos))
+                    if (!m_hexagonManager.HasBeenTravelled(curNode.endPos) && mergedRootCheck.Add(curNode.endPos))
                     {
                         newActiveRoots.Add(curNode);
+                    }
+                    else
+                    {
+                        m_activeRootEnds[root].MarkForDelete();
                     }
                 }
             }
         }
-        m_activeRoots.Clear ();
+        m_activeRoots.Clear();
         m_activeRoots = newActiveRoots;
+        m_hexagonManager.MarkTilesAsTravelled(m_activeRoots);
     }
 
     void UpdateAndTransferActiveRootEnds()
@@ -206,7 +220,9 @@ public class RootManager : MonoBehaviour
             {
                 if(nodeEndPair.Value.IsClaimed() )
                 {
-                    //CreateNewRootEnd( child );
+                    RootEnd rootEnd = CreateNewRootEnd( nodeEndPair.Key );
+                    rootEnd.BeginTransition(m_hexagonManager.GridToWorldPosition(child.endPos), child);
+                    newActiveRootEnds.Add( child, rootEnd );
                 }
                 else
                 {
