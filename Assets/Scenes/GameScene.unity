@@ -2916,6 +2916,19 @@ MonoBehaviour:
   mapHeight: 10
   tileRadius: 0.5
   tileSpacing: 0
+  m_sprites:
+  - {fileID: 21300000, guid: 53247cb313575c740a94eb6bccc40fd3, type: 3}
+  - {fileID: 21300000, guid: 5069e7db215cb8743bdff1a0e2b27b55, type: 3}
+  - {fileID: 21300000, guid: 9e6c2b91f98bc6446aaaf87b885ce350, type: 3}
+  - {fileID: 21300000, guid: bd01fb79b51930f46a0d91666f063ed5, type: 3}
+  - {fileID: 21300000, guid: 6c4ccd4a4b725e1438aac429ce15926a, type: 3}
+  - {fileID: 21300000, guid: d1d97d744f1141f4e8ce4caebb3bea6d, type: 3}
+  - {fileID: 21300000, guid: a9516c2b04ecab748959568b14b997b1, type: 3}
+  - {fileID: 21300000, guid: 93df325547c19f342b1a6540f7ae9bcd, type: 3}
+  - {fileID: 21300000, guid: 35fff68a3ea14414cbabe928927857b6, type: 3}
+  - {fileID: 21300000, guid: 23f5a6323bba0b14983cfd78b74b21c2, type: 3}
+  - {fileID: 21300000, guid: 8f1f6698a1f3d334bae5f17af80228d8, type: 3}
+  - {fileID: 21300000, guid: 211116e848742d041aa03af989da2843, type: 3}
 --- !u!4 &2111384368
 Transform:
   m_ObjectHideFlags: 0
