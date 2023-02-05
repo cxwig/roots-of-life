@@ -11,7 +11,7 @@ public class Hexagon
         None,
         Rock,
         FertilizedGround,
-        EnergyCrystal
+        EnergyCrystal,
     }
     public Vector2 Position { get { return m_position; } }
     private Vector2 m_position;
@@ -49,7 +49,8 @@ public class HexagonManager : MonoBehaviour
     public float tileSpacing = 2.0f;
     private float SquareVar = Mathf.Sqrt(3);
     private List<List<Hexagon>> hexagonalTiles;
-
+    [SerializeField] Dictionary<Hexagon.Interactable, float> rollSpawnChance;
+    public List<GameObject> Interactables;
     CameraMovement m_cameraMovement;
 
     [SerializeField]
@@ -139,6 +140,12 @@ public class HexagonManager : MonoBehaviour
 
     private void Start()
     {
+        rollSpawnChance = new Dictionary<Hexagon.Interactable, float>();
+        rollSpawnChance.Add(Hexagon.Interactable.None, 0.5f);
+        rollSpawnChance.Add(Hexagon.Interactable.Rock, 0.2f);
+        rollSpawnChance.Add(Hexagon.Interactable.EnergyCrystal, 0.1f);
+        rollSpawnChance.Add(Hexagon.Interactable.FertilizedGround, 0.2f);
+
         hexagonalTiles = new List<List<Hexagon>>();
         for (int y = 0; y < mapHeight; y++)
         {
@@ -149,7 +156,8 @@ public class HexagonManager : MonoBehaviour
                 float xPos = x * tileRadius * 1.5f;
                 float yPos = y * tileRadius * SquareVar + (x % 2 == 0 ? 0 : tileRadius * SquareVar / 2);
                 hexagonalTiles[y].Add(new Hexagon(xPos, -yPos));
-                SpawnHexTile(hexagonalTiles[y][x].Position);
+                hexagonalTiles[y][x].interactable = rollInteractable();
+                SpawnHexTile(hexagonalTiles[y][x].Position, hexagonalTiles[y][x].interactable);
             }
         }
         m_cameraMovement = FindObjectOfType<CameraMovement>();
@@ -165,15 +173,49 @@ public class HexagonManager : MonoBehaviour
         {
             float xPos = x * tileRadius * 1.5f;
             float yPos = y * tileRadius * SquareVar + (x % 2 == 0 ? 0 : tileRadius * SquareVar / 2);
+            var position = new Vector2(xPos, -yPos);
             hexagonalTiles[y].Add(new Hexagon(xPos, -yPos));
-            SpawnHexTile(hexagonalTiles[y][x].Position);
+            hexagonalTiles[y][x].interactable = rollInteractable();
+
+            SpawnHexTile(hexagonalTiles[y][x].Position, hexagonalTiles[y][x].interactable);
         }
 
+        
         m_cameraMovement.bottomBound = -(mapHeight * tileRadius * SquareVar) + tileRadius * 5;
     }
 
-    protected void SpawnHexTile( Vector2 position )
+
+    protected Hexagon.Interactable rollInteractable()
     {
+        float randomizer = Random.Range(0.0f, 1.0f);
+        foreach (var pair in rollSpawnChance)
+        {
+            randomizer -= pair.Value;
+            if(randomizer <= 0)
+            {
+                return pair.Key;
+            }
+        }
+        return Hexagon.Interactable.None;
+    }
+    protected void SpawnHexTile(Vector2 position, Hexagon.Interactable interact)
+    {
+        Vector3 interactablePos = position;
+        interactablePos.z -= 1;
+        switch (interact)
+        {
+            case Hexagon.Interactable.Rock:
+                Instantiate(Interactables[0], interactablePos, Quaternion.identity);
+                Debug.Log("spawning rock");
+                break;
+            case Hexagon.Interactable.EnergyCrystal:
+                Instantiate(Interactables[1], interactablePos, Quaternion.identity);
+                Debug.Log("spawning crystal");
+                break;
+            case Hexagon.Interactable.FertilizedGround:
+                Instantiate(Interactables[2], interactablePos, Quaternion.identity);
+                break;
+        }
         GameObject hexagonalTile = Instantiate(hexagonalTilePrefab, position, Quaternion.identity);
         SpriteRenderer renderer = hexagonalTile.GetComponent<SpriteRenderer>();
         renderer.sprite = m_sprites[Random.Range(0, m_sprites.Count)];
