@@ -153,7 +153,7 @@ public class HexagonManager : MonoBehaviour
             }
         }
         m_cameraMovement = FindObjectOfType<CameraMovement>();
-        m_cameraMovement.bottomBound = - ( mapHeight * tileRadius * SquareVar + tileRadius * SquareVar / 2 );   
+        m_cameraMovement.bottomBound = -(mapHeight * tileRadius * SquareVar) + tileRadius * 5;
     }
 
     public void SpawnRow()
@@ -169,7 +169,7 @@ public class HexagonManager : MonoBehaviour
             SpawnHexTile(hexagonalTiles[y][x].Position);
         }
 
-        m_cameraMovement.bottomBound = -(mapHeight * tileRadius * SquareVar + tileRadius * SquareVar / 2);
+        m_cameraMovement.bottomBound = -(mapHeight * tileRadius * SquareVar) + tileRadius * 5;
     }
 
     protected void SpawnHexTile( Vector2 position )

@@ -1383,7 +1383,7 @@ MonoBehaviour:
   leftBound: 2.9
   rightBound: 3.9
   topBound: -0.4
-  bottomBound: -4.6
+  bottomBound: -4.2
 --- !u!1 &562514253
 GameObject:
   m_ObjectHideFlags: 0
@@ -2314,7 +2314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1377eefb807c2ba4c9c65f184e06e25d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  progress: 0
+  progress: 0.1
   slider: {fileID: 1025596317}
 --- !u!114 &1025596317
 MonoBehaviour:
@@ -2419,7 +2419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1377eefb807c2ba4c9c65f184e06e25d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  progress: 0
+  progress: 0.1
   slider: {fileID: 1029236212}
 --- !u!114 &1029236212
 MonoBehaviour:
@@ -2688,6 +2688,7 @@ GameObject:
   - component: {fileID: 1139518233}
   - component: {fileID: 1139518235}
   - component: {fileID: 1139518234}
+  - component: {fileID: 1139518236}
   m_Layer: 0
   m_Name: Increaser (1)
   m_TagString: Untagged
@@ -2735,7 +2736,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: +2
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 51b33762eac410448a54937e586004ef, type: 2}
   m_sharedMaterial: {fileID: -2012113804084440527, guid: 51b33762eac410448a54937e586004ef, type: 2}
@@ -2812,6 +2813,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1139518232}
   m_CullTransparentMesh: 1
+--- !u!114 &1139518236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139518232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc69fe05f3abb194bb0c92af6c18650e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 1025596317}
+  m_previousValue: 0
 --- !u!1 &1234365197
 GameObject:
   m_ObjectHideFlags: 0
@@ -3553,7 +3568,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.79556, y: 0}
   m_SizeDelta: {x: 1919, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1406283398
@@ -4176,6 +4191,7 @@ GameObject:
   - component: {fileID: 1964130402}
   - component: {fileID: 1964130404}
   - component: {fileID: 1964130403}
+  - component: {fileID: 1964130405}
   m_Layer: 0
   m_Name: Increaser
   m_TagString: Untagged
@@ -4223,7 +4239,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: +2
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 51b33762eac410448a54937e586004ef, type: 2}
   m_sharedMaterial: {fileID: -2012113804084440527, guid: 51b33762eac410448a54937e586004ef, type: 2}
@@ -4300,6 +4316,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1964130401}
   m_CullTransparentMesh: 1
+--- !u!114 &1964130405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964130401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc69fe05f3abb194bb0c92af6c18650e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 1029236212}
+  m_previousValue: 0
 --- !u!1 &2015069718
 GameObject:
   m_ObjectHideFlags: 0

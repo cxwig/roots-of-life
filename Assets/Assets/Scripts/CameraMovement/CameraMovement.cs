@@ -30,8 +30,7 @@ public class CameraMovement : MonoBehaviour
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         targetZoom = Mathf.Clamp(cam.orthographicSize - scroll * zoomSpeed, minZoom, maxZoom);
     }
-
-    private void LateUpdate()
+    void LateUpdate()
     {
         Vector3 clampedPosition = transform.position;
         clampedPosition.x = Mathf.Clamp(transform.position.x, leftBound, rightBound);
@@ -40,7 +39,7 @@ public class CameraMovement : MonoBehaviour
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, zoomSmoothSpeed);
     }
 
-    private void PanCamera()
+    void PanCamera()
     {
         if (Input.GetMouseButtonDown(1))
         {
@@ -56,3 +55,5 @@ public class CameraMovement : MonoBehaviour
         }
     }
 }
+
+

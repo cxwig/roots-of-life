@@ -10,7 +10,7 @@ public class ResourcePoolEvent : UnityEvent<float> { }
 public static class GameEvents
 {
     public static VFXEvent VFXEventInvoker = new VFXEvent();
-
+    
     public static ResourcePoolEvent EnergyPoolChangedValue = new ResourcePoolEvent();
     public static ResourcePoolEvent EnergyPoolChangedPerc = new ResourcePoolEvent();
 
