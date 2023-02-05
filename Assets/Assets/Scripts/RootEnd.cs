@@ -13,11 +13,19 @@ public class RootEnd : MonoBehaviour
     private Vector3 m_destination;
     private RootNode m_root;
 
+    public bool AMPOTATO { get { return m_markedForPotatoDeath; } }
+    private bool m_markedForPotatoDeath = false;
+
     public PlayerController playerController;
 
     public void MarkForDelete()
     {
         m_deleteAfterTransition = true;
+    }
+
+    public void MarkForPotatoDeath()
+    {
+        m_markedForPotatoDeath = true;
     }
 
     public bool IsMarkedForDeletion() { return m_deleteAfterTransition; }
@@ -52,6 +60,11 @@ public class RootEnd : MonoBehaviour
             {
                 transform.position = Vector3.Lerp(transform.position, m_destination, m_elapsedTime / TRANSITION_TIME * 0.25f);
             }
+        }
+        else if( m_markedForPotatoDeath)
+        {
+            Destroy(gameObject);    //TODO fix everything this breaks
+            GameEvents.ResourceCollected.Invoke(ResourceType.Potato, 100.0f);
         }
     }
 
