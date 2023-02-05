@@ -15,6 +15,8 @@ public class CameraMovement : MonoBehaviour
     public float maxZoom = 20f;
     public float leftBound = -0.23f;
     public float rightBound = 1.23f;
+    public float topBound = 0f;
+    public float bottomBound = 0f;
     private float targetZoom;
 
     void Start()
@@ -33,6 +35,7 @@ public class CameraMovement : MonoBehaviour
     {
         Vector3 clampedPosition = transform.position;
         clampedPosition.x = Mathf.Clamp(transform.position.x, leftBound, rightBound);
+        clampedPosition.y = Mathf.Clamp(transform.position.y, bottomBound, topBound);
         transform.position = clampedPosition;
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, zoomSmoothSpeed);
     }
