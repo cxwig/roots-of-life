@@ -111,6 +111,30 @@ public class HexagonManager : MonoBehaviour
         }
     }
 
+    public Vector3 GetNextPositionAlongDirection( RootNode node )
+    {
+        Vector3 position = GridToWorldPosition( node.endPos );
+        Vector2Int gridPos = node.endPos;
+        switch( node.direction ) 
+        {
+            case RootNode.Direction.Right:
+                gridPos = GetDownRightOf(node.endPos);
+                position = new Vector3(gridPos.x * tileRadius * 1.5f,
+                    gridPos.y * tileRadius * SquareVar + (gridPos.x % 2 == 0 ? 0 : tileRadius * SquareVar / 2));
+                break;
+            case RootNode.Direction.Down:
+                gridPos.y += 1;
+                position.y = gridPos.y * tileRadius * SquareVar + (gridPos.x % 2 == 0 ? 0 : tileRadius * SquareVar / 2);
+                break;
+            default:
+                gridPos = GetDownLeftOf(node.endPos);
+                position = new Vector3(gridPos.x * tileRadius * 1.5f,
+                    gridPos.y * tileRadius * SquareVar + (gridPos.x % 2 == 0 ? 0 : tileRadius * SquareVar / 2));
+                break;
+        }
+        return position;
+    }
+
     private void Start()
     {
         hexagonalTiles = new List<List<Hexagon>>();

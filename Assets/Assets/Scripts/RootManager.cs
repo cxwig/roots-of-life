@@ -157,8 +157,9 @@ public class RootManager : MonoBehaviour
         HashSet<Vector2Int> mergedRootCheck = new HashSet<Vector2Int>();
         RootNode curNode = null;
         foreach (var root in m_activeRoots) 
-        { 
-            if( root.growthDirection == RootNode.Direction.LeftRight )
+        {
+            bool oneSucceeded = false;
+            if ( root.growthDirection == RootNode.Direction.LeftRight )
             {
                 curNode = SpawnRoot( root, RootNode.Direction.Left );
 
@@ -172,7 +173,9 @@ public class RootManager : MonoBehaviour
                     {
                         m_activeRootEnds[root].MarkForDelete();
                     }
+                    oneSucceeded = true;
                 }
+
 
                 curNode = SpawnRoot( root, RootNode.Direction.Right );
 
@@ -186,6 +189,7 @@ public class RootManager : MonoBehaviour
                     {
                         m_activeRootEnds[root].MarkForDelete();
                     }
+                    oneSucceeded = true;
                 }
             }
             else
@@ -202,7 +206,13 @@ public class RootManager : MonoBehaviour
                     {
                         m_activeRootEnds[root].MarkForDelete();
                     }
+                    oneSucceeded = true;
                 }
+            }
+
+            if (!oneSucceeded)
+            {
+                m_activeRootEnds[root].MarkForDelete();
             }
         }
         m_activeRoots.Clear();
@@ -216,19 +226,28 @@ public class RootManager : MonoBehaviour
 
         foreach( var nodeEndPair in m_activeRootEnds )
         {
-            foreach( var child in nodeEndPair.Key.children )
+            if (nodeEndPair.Key.children.Count > 0)
             {
-                if(nodeEndPair.Value.IsClaimed() )
+                foreach (var child in nodeEndPair.Key.children)
                 {
-                    RootEnd rootEnd = CreateNewRootEnd( nodeEndPair.Key );
-                    rootEnd.BeginTransition(m_hexagonManager.GridToWorldPosition(child.endPos), child);
-                    newActiveRootEnds.Add( child, rootEnd );
+                    if (nodeEndPair.Value.IsClaimed())
+                    {
+                        RootEnd rootEnd = CreateNewRootEnd(nodeEndPair.Key);
+                        rootEnd.BeginTransition(m_hexagonManager.GridToWorldPosition(child.endPos), child);
+                        newActiveRootEnds.Add(child, rootEnd);
+                    }
+                    else
+                    {
+                        newActiveRootEnds.Add(child, nodeEndPair.Value);
+                        nodeEndPair.Value.BeginTransition(m_hexagonManager.GridToWorldPosition(child.endPos), child);
+                    }
                 }
-                else
-                {
-                    newActiveRootEnds.Add( child, nodeEndPair.Value );
-                    nodeEndPair.Value.BeginTransition(m_hexagonManager.GridToWorldPosition(child.endPos), child);
-                }
+            }
+            else
+            {
+                //No children means hit edge or rock, begin transition to clean up
+                nodeEndPair.Value.BeginTransition(m_hexagonManager.GetNextPositionAlongDirection(nodeEndPair.Key), null);
+
             }
         }
 
