@@ -37,6 +37,15 @@ public class Hexagon
     {
         travelled = true;
     }
+
+    public Hexagon.Interactable GainResource()
+    {
+        if( !travelled )
+        {
+            return interactable;
+        }
+        return Interactable.None;
+    }
 }
 
 public class HexagonManager : MonoBehaviour
@@ -112,6 +121,11 @@ public class HexagonManager : MonoBehaviour
         {
             hexagonalTiles[node.endPos.y][node.endPos.x].MarkAsTravelled();
         }
+    }
+
+    public Hexagon.Interactable GetResource( Vector2Int pos )
+    {
+        return hexagonalTiles[pos.y][pos.x].GainResource();
     }
 
     public Vector3 GetNextPositionAlongDirection( RootNode node )

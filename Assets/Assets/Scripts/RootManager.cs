@@ -71,7 +71,7 @@ public class RootManager : MonoBehaviour
 
     void DetermineGrowthDirectionAndUpdateWeights( RootNode node )
     {
-        //TODO
+        //TODO weighted root spawning
         switch (Random.Range(0, 4) )
         {
             case 0:
@@ -142,6 +142,19 @@ public class RootManager : MonoBehaviour
             }
 
             //TODO if obstacle lookup collides into rck or something return null else
+
+            //Check hexagon resource
+            switch( m_hexagonManager.GetResource(endPos) )
+            {
+                case Hexagon.Interactable.Rock:
+                    return null;
+                case Hexagon.Interactable.FertilizedGround:
+                    GameEvents.ResourceCollected.Invoke(ResourceType.Fertilizer, 1.0f);
+                    break;
+                case Hexagon.Interactable.EnergyCrystal:
+                    GameEvents.ResourceCollected.Invoke(ResourceType.Energy, 100.0f);
+                    break;
+            }
 
             DetermineGrowthDirectionAndUpdateWeights( curNode );
             parent.children.Add( curNode );

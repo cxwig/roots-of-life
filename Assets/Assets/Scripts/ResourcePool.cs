@@ -92,6 +92,16 @@ public class ResourcePool : MonoBehaviour
         return true;
     }
 
+    public ResourcePoolModifier GetModifier(string modifierName)
+    {
+        if (modifierName == null || !m_resourcePoolModifiers.ContainsKey(modifierName)) 
+        {
+            return null;
+        }
+
+        return m_resourcePoolModifiers[modifierName];
+    }
+
     public bool RemoveModifier( string modifierName )
     {
         return m_resourcePoolModifiers.Remove( modifierName );
@@ -139,18 +149,28 @@ public class ResourcePool : MonoBehaviour
         return true;
     }
 
+    public float GetModifierDelta(string modifierName)
+    {
+        if (modifierName == null || !m_resourcePoolModifiers.ContainsKey(modifierName))
+        {
+            return -999999.0f;
+        }
+
+        return m_resourcePoolModifiers[modifierName].Delta;
+    }
+
     public bool ModifyResource( float delta, bool force = false )
     {
         if (!force)
         {
             float adjustedAmount = m_amount + delta;
-            if (adjustedAmount < m_minAmount || adjustedAmount > m_maxAmount)
+            if (adjustedAmount < m_minAmount )
             {
                 return false;
             }
             else
             {
-                m_amount = adjustedAmount;
+                m_amount = Mathf.Min(adjustedAmount, m_maxAmount);
                 m_valueChanged = true;
                 return true;
             }
@@ -162,6 +182,11 @@ public class ResourcePool : MonoBehaviour
             m_valueChanged = true;
             return true;
         }
+    }
+
+    public void SetMaxResource( float newValue )
+    {
+        m_maxAmount = newValue;
     }
 
     void Awake()
