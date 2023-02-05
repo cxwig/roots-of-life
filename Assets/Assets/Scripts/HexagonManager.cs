@@ -13,6 +13,9 @@ public class HexagonManager : MonoBehaviour
     private float SquareVar = Mathf.Sqrt(3);
     private Vector2[,] hexagonalTilePositions;
 
+    [SerializeField]
+    List<Sprite> m_sprites;
+
     public Vector3 GridToWorldPosition( Vector2Int gridPosition )
     {
         return hexagonalTilePositions[gridPosition.x, gridPosition.y];
@@ -64,9 +67,16 @@ public class HexagonManager : MonoBehaviour
                 float xPos = x * tileRadius * 1.5f;
                 float yPos = y * tileRadius * SquareVar + (x % 2 == 0 ? 0 : tileRadius * SquareVar / 2);
                 hexagonalTilePositions[x, y] = new Vector2(xPos, -yPos);
-                GameObject hexagonalTile = Instantiate(hexagonalTilePrefab, hexagonalTilePositions[x, y], Quaternion.identity);
-                hexagonalTile.transform.position = new Vector3(hexagonalTile.transform.position.x, hexagonalTile.transform.position.y, 0);
+                SpawnHexTile(hexagonalTilePositions[x, y]);
             }
         }
+    }
+
+    protected void SpawnHexTile( Vector2 position )
+    {
+        GameObject hexagonalTile = Instantiate(hexagonalTilePrefab, position, Quaternion.identity);
+        SpriteRenderer renderer = hexagonalTile.GetComponent<SpriteRenderer>();
+        renderer.sprite = m_sprites[Random.Range(0, m_sprites.Count)];
+        hexagonalTile.transform.localScale = new Vector3( 0.03f, 0.03f, 1.0f);
     }
 }

@@ -20,9 +20,19 @@ public class RootNode : MonoBehaviour
 
     public Direction growthDirection = Direction.Right;
 
-    public bool IsRootEnd() { return children.Count == 0; }
+    public bool IsRootEnd() { return children.Count == 0; } //TODO evaluate if this function is needed/valid/accurate
 
     public uint directionStreakCounter = 0;
+    public uint NaturalSplitLockout { get { return m_naturalSplitLockout; } protected set { m_naturalSplitLockout = value; } }
+    protected uint m_naturalSplitLockout = 0;
+
+    public void DecrementNaturalSplitLockout()
+    {
+        if( m_naturalSplitLockout > 0 )
+        {
+            m_naturalSplitLockout--;
+        }
+    }
 
     public Vector2Int startPos, endPos;
 }
