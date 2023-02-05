@@ -139,6 +139,11 @@ public class RootManager : MonoBehaviour
             DetermineGrowthDirectionAndUpdateWeights( curNode );
             parent.children.Add( curNode );
 
+            if(endPos.y >= m_hexagonManager.mapHeight - 3)
+            {
+                m_hexagonManager.SpawnRow();
+            }
+
             return curNode;
         }
 

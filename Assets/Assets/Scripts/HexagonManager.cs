@@ -11,19 +11,21 @@ public class HexagonManager : MonoBehaviour
     public float tileRadius = 1.0f;
     public float tileSpacing = 2.0f;
     private float SquareVar = Mathf.Sqrt(3);
-    private Vector2[,] hexagonalTilePositions;
+    //private Vector2[,] hexagonalTilePositions;
+    private List<List<Vector2>> hexagonalTilePositions;
 
     [SerializeField]
     List<Sprite> m_sprites;
 
     public Vector3 GridToWorldPosition( Vector2Int gridPosition )
     {
-        return hexagonalTilePositions[gridPosition.x, gridPosition.y];
+        //return hexagonalTilePositions[gridPosition.x, gridPosition.y];
+        return hexagonalTilePositions[gridPosition.y][gridPosition.x];
     }
 
     public Vector3 GridToWorldPosition( int x, int y )
     {
-        return hexagonalTilePositions[x,y];
+        return hexagonalTilePositions[y][x];
     }
 
     public Vector2Int GetDownLeftOf( Vector2Int gridPosition )
@@ -58,17 +60,32 @@ public class HexagonManager : MonoBehaviour
 
     private void Start()
     {
-        
-        hexagonalTilePositions = new Vector2[mapWidth, mapHeight];
-        for (int x = 0; x < mapWidth; x++)
+        hexagonalTilePositions = new List<List<Vector2>>();
+        for (int y = 0; y < mapHeight; y++)
         {
-            for (int y = 0; y < mapHeight; y++)
+            hexagonalTilePositions.Add(new List<Vector2>());
+            for (int x = 0; x < mapWidth; x++)
             {
+            
                 float xPos = x * tileRadius * 1.5f;
                 float yPos = y * tileRadius * SquareVar + (x % 2 == 0 ? 0 : tileRadius * SquareVar / 2);
-                hexagonalTilePositions[x, y] = new Vector2(xPos, -yPos);
-                SpawnHexTile(hexagonalTilePositions[x, y]);
+                hexagonalTilePositions[y].Add(new Vector2(xPos, -yPos));
+                SpawnHexTile(hexagonalTilePositions[y][x]);
             }
+        }
+    }
+
+    public void SpawnRow()
+    {
+        int y = mapHeight;
+        mapHeight++;
+        hexagonalTilePositions.Add(new List<Vector2>());
+        for ( int x = 0; x < mapWidth; x++)
+        {
+            float xPos = x * tileRadius * 1.5f;
+            float yPos = y * tileRadius * SquareVar + (x % 2 == 0 ? 0 : tileRadius * SquareVar / 2);
+            hexagonalTilePositions[y].Add(new Vector2(xPos, -yPos));
+            SpawnHexTile(hexagonalTilePositions[y][x]);
         }
     }
 
