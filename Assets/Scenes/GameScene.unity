@@ -975,8 +975,8 @@ MonoBehaviour:
   zoomSmoothSpeed: 0.125
   minZoom: 1
   maxZoom: 2
-  leftBound: 0
-  rightBound: 6.75
+  leftBound: 2.9
+  rightBound: 3.9
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
