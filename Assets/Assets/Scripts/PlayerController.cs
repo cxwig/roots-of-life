@@ -28,6 +28,20 @@ public class PlayerController : MonoBehaviour
         m_actions.Add( Actions.MoveRight, new MoveRight() );
         m_actions.Add( Actions.MoveDown, new MoveDown() );
         m_actions.Add( Actions.Split, new Split() );
+        GameEvents.EnergyPoolChangedValue.AddListener( OnEnergyPoolChanged );
+        GameEvents.EnergyPoolChangedPerc.AddListener(GameObject.Find("EnergyBar").GetComponent<SliderController>().UpdateProgress);
+        m_energyPool.AddModifier("test", new ResourcePoolModifier(0.1f, 0.1f));
+        m_energyPool.eventInvoker = () => 
+        { 
+            GameEvents.EnergyPoolChangedValue.Invoke(m_energyPool.Amount);
+            GameEvents.EnergyPoolChangedPerc.Invoke(m_energyPool.Amount / m_energyPool.MaxAmount);
+        };
+        
+    }
+
+    void OnEnergyPoolChanged( float value )
+    {
+        
     }
 
     // Update is called once per frame

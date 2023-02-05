@@ -7,10 +7,9 @@ public class SliderController : MonoBehaviour
     public float progress = 0.0f;
     public Slider slider;
 
-    public void UpdateProgress()
+    public void UpdateProgress(float perc)
     {
-        progress++;
-        slider.value = progress;
+        slider.value = perc;
     }
 
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ResourcePoolModifier
 {
@@ -50,9 +51,13 @@ public class ResourcePool : MonoBehaviour
     float m_minAmount;
     float m_maxAmount;
 
+    bool m_valueChanged = false;
+
+    public delegate void NotifyResourceChange();
+   public  NotifyResourceChange eventInvoker;
+
     //Pool modifiers
     private Dictionary<string, ResourcePoolModifier> m_resourcePoolModifiers = new Dictionary<string, ResourcePoolModifier>();
-
 
     public ResourcePool( float initialAmount, float initialMinAmount, float initialMaxAmount )
     {
@@ -146,6 +151,7 @@ public class ResourcePool : MonoBehaviour
             else
             {
                 m_amount = adjustedAmount;
+                m_valueChanged = true;
                 return true;
             }
         }
@@ -153,8 +159,14 @@ public class ResourcePool : MonoBehaviour
         {
             m_amount += delta;
             m_amount = Mathf.Min(Mathf.Max(m_amount, m_minAmount), m_maxAmount);
+            m_valueChanged = true;
             return true;
         }
+    }
+
+    void Awake()
+    {
+        m_resourcePoolModifiers = new Dictionary<string, ResourcePoolModifier>();
     }
 
     // Start is called before the first frame update
@@ -163,17 +175,27 @@ public class ResourcePool : MonoBehaviour
         m_amount = m_initialAmount;
         m_maxAmount = m_initialMaxAmount;
         m_minAmount = m_initialMinAmount;
-        m_resourcePoolModifiers = new Dictionary<string, ResourcePoolModifier>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        float old = m_amount;
         foreach( var modifier in m_resourcePoolModifiers.Values ) 
         {
             m_amount += modifier.UpdateAndGetFrameModifier(Time.deltaTime);
         }
         
         m_amount = Mathf.Min(Mathf.Max(m_amount, m_minAmount), m_maxAmount);
+        if( old != m_amount ) 
+        { 
+            m_valueChanged = true; 
+        }
+
+        if( m_valueChanged)
+        {
+            eventInvoker?.Invoke();
+            m_valueChanged = false;
+        }
     }
 }
