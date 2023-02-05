@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public enum Actions
     {
+        None,
         MoveLeft,
         MoveRight,
         MoveDown,
@@ -17,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
     Dictionary<Actions, PlayerActionBase> m_actions;
 
-    private PlayerActionBase m_selectedAction;
+    private Actions m_selectedAction;
 
     // Start is called before the first frame update
     void Start()
@@ -35,17 +36,34 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    public Actions SelectedAction()
+    {
+        return m_selectedAction;
+    }
+
+    public void SetSelectedAction(Actions action )
+    {
+        m_selectedAction = action;
+    }
+
     public void UseActionOn( RootEnd target )
     {
-        if( m_energyPool == null || m_selectedAction == null 
-            || (!m_selectedAction.Forced && m_energyPool.Amount < m_selectedAction.Cost)
-            || !m_selectedAction.CanUseActionOn(target) ) 
+        if(m_energyPool == null || m_selectedAction == Actions.None)
+        {
+            //Critical Fail
+            return;
+        }
+
+        PlayerActionBase selectedAction = m_actions[m_selectedAction];
+
+        if ( (!selectedAction.Forced && m_energyPool.Amount < selectedAction.Cost)
+            || !selectedAction.CanUseActionOn(target) ) 
         {
             //TODO can play fail SFX if an action was selected
             return;
         }
 
-        m_selectedAction.UseActionOn(target);
-        m_energyPool.ModifyResource(m_selectedAction.Cost, true);
+        selectedAction.UseActionOn(target);
+        m_energyPool.ModifyResource(selectedAction.Cost, true);
     }
 }
