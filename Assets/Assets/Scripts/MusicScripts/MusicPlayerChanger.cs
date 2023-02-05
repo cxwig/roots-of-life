@@ -9,7 +9,7 @@ public class MusicPlayerChanger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AudioSource.Play();
+
     }
 
     // Update is called once per frame
