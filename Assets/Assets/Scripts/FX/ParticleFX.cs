@@ -5,7 +5,7 @@ using System.Threading;
 using UnityEngine;
 using Task = System.Threading.Tasks.Task;
 
-public class DespawnParticle : MonoBehaviour
+public class ParticleFX : MonoBehaviour
 {
     private CancellationTokenSource _cancellation;
     
