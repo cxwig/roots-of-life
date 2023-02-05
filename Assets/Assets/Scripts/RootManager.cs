@@ -201,7 +201,7 @@ public class RootManager : MonoBehaviour
             {
                 if(nodeEndPair.Value.IsClaimed() )
                 {
-                    //TODO create new
+                    //CreateNewRootEnd( child );
                 }
                 else
                 {
@@ -210,6 +210,8 @@ public class RootManager : MonoBehaviour
                 }
             }
         }
+
+        m_activeRootEnds = newActiveRootEnds;
     }
     
     // Update is called once per frame
@@ -228,7 +230,7 @@ public class RootManager : MonoBehaviour
             m_curTime = m_rootSpawnTime;
             m_transitionLocked = true;
             SpawnRoots();
-            //UpdateAndTransferActiveRootEnds();
+            UpdateAndTransferActiveRootEnds();
         }
     }
 }

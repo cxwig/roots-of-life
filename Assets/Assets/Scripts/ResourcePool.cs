@@ -163,6 +163,7 @@ public class ResourcePool : MonoBehaviour
         m_amount = m_initialAmount;
         m_maxAmount = m_initialMaxAmount;
         m_minAmount = m_initialMinAmount;
+        m_resourcePoolModifiers = new Dictionary<string, ResourcePoolModifier>();
     }
 
     // Update is called once per frame

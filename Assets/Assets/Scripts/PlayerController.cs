@@ -4,18 +4,29 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public enum Actions
+    {
+        MoveLeft,
+        MoveRight,
+        MoveDown,
+        Split
+    }
+
     [SerializeField]
     ResourcePool m_energyPool;
 
-    [SerializeField]
-    List<PlayerActionBase> m_actions;
+    Dictionary<Actions, PlayerActionBase> m_actions;
 
     private PlayerActionBase m_selectedAction;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        m_actions = new Dictionary<Actions, PlayerActionBase>();
+        m_actions.Add( Actions.MoveLeft, new MoveLeft() );
+        m_actions.Add( Actions.MoveRight, new MoveRight() );
+        m_actions.Add( Actions.MoveDown, new MoveDown() );
+        m_actions.Add( Actions.Split, new Split() );
     }
 
     // Update is called once per frame

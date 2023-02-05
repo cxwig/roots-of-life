@@ -2033,6 +2033,7 @@ GameObject:
   - component: {fileID: 1335689969}
   - component: {fileID: 1335689971}
   - component: {fileID: 1335689970}
+  - component: {fileID: 1335689972}
   m_Layer: 0
   m_Name: GameHandler
   m_TagString: Untagged
@@ -2084,8 +2085,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 735d963f02b44e047ae92dfa4c0377be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_energyPool: {fileID: 0}
-  m_actions: []
+  m_energyPool: {fileID: 1335689972}
 --- !u!114 &1335689971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2105,6 +2105,21 @@ MonoBehaviour:
   m_hexagonManager: {fileID: 2111384367}
   m_playerController: {fileID: 1335689970}
   m_rootSpawnTime: 1
+--- !u!114 &1335689972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335689967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc0e117edf548c74e8e86b769bb01d20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_initialAmount: 50
+  m_initialMinAmount: 0
+  m_initialMaxAmount: 100
 --- !u!1 &1406283396
 GameObject:
   m_ObjectHideFlags: 0

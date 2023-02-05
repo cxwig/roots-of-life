@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveLeft : MoveRoot
+public class MoveRight : MoveRoot
 {
-    public MoveLeft()
+    public MoveRight()
     {
-        m_direction = RootNode.Direction.Left;
+        m_direction = RootNode.Direction.Right;
         m_cost = 10.0f;
     }
 }
