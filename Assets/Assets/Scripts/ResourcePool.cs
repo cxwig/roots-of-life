@@ -35,7 +35,7 @@ public class ResourcePool : MonoBehaviour
     [SerializeField]
     float m_initialAmount = 0.0f;
 
-    float Amount { get { return m_amount; } }
+    public float Amount { get { return m_amount; } }
     float m_amount;
 
     //Pool limits
@@ -44,8 +44,8 @@ public class ResourcePool : MonoBehaviour
     [SerializeField]
     float m_initialMaxAmount = 100.0f;
 
-    float MinAmount { get { return m_minAmount; } }
-    float MaxAmount { get { return m_maxAmount; } }
+    public float MinAmount { get { return m_minAmount; } }
+    public float MaxAmount { get { return m_maxAmount; } }
 
     float m_minAmount;
     float m_maxAmount;
