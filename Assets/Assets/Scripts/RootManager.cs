@@ -30,6 +30,12 @@ public class RootManager : MonoBehaviour
     bool m_transitionLocked = false;
     bool spawnedFirst = false;
 
+
+    public float GetLowest()
+    {
+        return Lowest;
+    }
+    private float Lowest = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -143,6 +149,11 @@ public class RootManager : MonoBehaviour
             if(endPos.y >= m_hexagonManager.mapHeight - 3)
             {
                 m_hexagonManager.SpawnRow();
+            }
+
+            if(Lowest > spawnPosition.y)
+            {
+                Lowest = spawnPosition.y;
             }
 
             return curNode;
