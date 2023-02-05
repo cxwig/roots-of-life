@@ -11,7 +11,6 @@ public class HexagonManager : MonoBehaviour
     public float tileRadius = 1.0f;
     public float tileSpacing = 2.0f;
     private float SquareVar = Mathf.Sqrt(3);
-    //private Vector2[,] hexagonalTilePositions;
     private List<List<Vector2>> hexagonalTilePositions;
 
     [SerializeField]
@@ -19,7 +18,6 @@ public class HexagonManager : MonoBehaviour
 
     public Vector3 GridToWorldPosition( Vector2Int gridPosition )
     {
-        //return hexagonalTilePositions[gridPosition.x, gridPosition.y];
         return hexagonalTilePositions[gridPosition.y][gridPosition.x];
     }
 
