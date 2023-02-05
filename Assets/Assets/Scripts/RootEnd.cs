@@ -57,12 +57,12 @@ public class RootEnd : MonoBehaviour
 
     public void ChangeDirection( RootNode.Direction newDirection )
     {
-        m_root.direction = newDirection;
+        m_root.growthDirection = newDirection;
     }
 
     public RootNode.Direction GetRootGrowthDirection()
     {
-        return m_root.direction;
+        return m_root.growthDirection;
     }
 
     void OnMouseDown()

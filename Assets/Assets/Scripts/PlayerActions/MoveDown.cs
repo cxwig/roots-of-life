@@ -6,7 +6,7 @@ public class MoveDown : MoveRoot
 {
     public MoveDown()
     {
-        m_direction = RootNode.Direction.Right;
+        m_direction = RootNode.Direction.Down;
         m_cost = 10.0f;
     }
 }

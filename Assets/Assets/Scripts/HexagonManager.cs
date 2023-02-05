@@ -50,6 +50,8 @@ public class HexagonManager : MonoBehaviour
     private float SquareVar = Mathf.Sqrt(3);
     private List<List<Hexagon>> hexagonalTiles;
 
+    CameraMovement m_cameraMovement;
+
     [SerializeField]
     List<Sprite> m_sprites;
 
@@ -120,16 +122,16 @@ public class HexagonManager : MonoBehaviour
             case RootNode.Direction.Right:
                 gridPos = GetDownRightOf(node.endPos);
                 position = new Vector3(gridPos.x * tileRadius * 1.5f,
-                    gridPos.y * tileRadius * SquareVar + (gridPos.x % 2 == 0 ? 0 : tileRadius * SquareVar / 2));
+                    -(gridPos.y * tileRadius * SquareVar + (gridPos.x % 2 == 0 ? 0 : tileRadius * SquareVar / 2)));
                 break;
             case RootNode.Direction.Down:
                 gridPos.y += 1;
-                position.y = gridPos.y * tileRadius * SquareVar + (gridPos.x % 2 == 0 ? 0 : tileRadius * SquareVar / 2);
+                position.y = -( gridPos.y * tileRadius * SquareVar + (gridPos.x % 2 == 0 ? 0 : tileRadius * SquareVar / 2));
                 break;
             default:
                 gridPos = GetDownLeftOf(node.endPos);
                 position = new Vector3(gridPos.x * tileRadius * 1.5f,
-                    gridPos.y * tileRadius * SquareVar + (gridPos.x % 2 == 0 ? 0 : tileRadius * SquareVar / 2));
+                    -(gridPos.y * tileRadius * SquareVar + (gridPos.x % 2 == 0 ? 0 : tileRadius * SquareVar / 2)));
                 break;
         }
         return position;
@@ -150,6 +152,8 @@ public class HexagonManager : MonoBehaviour
                 SpawnHexTile(hexagonalTiles[y][x].Position);
             }
         }
+        m_cameraMovement = FindObjectOfType<CameraMovement>();
+        m_cameraMovement.bottomBound = - ( mapHeight * tileRadius * SquareVar + tileRadius * SquareVar / 2 );   
     }
 
     public void SpawnRow()
@@ -164,6 +168,8 @@ public class HexagonManager : MonoBehaviour
             hexagonalTiles[y].Add(new Hexagon(xPos, -yPos));
             SpawnHexTile(hexagonalTiles[y][x].Position);
         }
+
+        m_cameraMovement.bottomBound = -(mapHeight * tileRadius * SquareVar + tileRadius * SquareVar / 2);
     }
 
     protected void SpawnHexTile( Vector2 position )
