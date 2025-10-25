@@ -22,15 +22,13 @@ Each decision affects how the roots grow, branch, and survive while traveling do
 - Atmospheric sound design and ambient background.
 
 ## Controls
-- Move: Arrow keys or WASD  
-- Activate skill: Assigned key (depending on ability)  
-- Collect and expand: Touch water or nutrients
+- Activate skill at the bottom
 
 ## Development
 - Made for: Global Game Jam 2023  
 - Theme: Roots  
-- Development Time: 48 hours  
-- Engine: [Specify engine used, e.g., Unity or Godot]  
+- Development Time: 40 hours  
+- Engine: Unity
 - Team:
   - Norman, Vasily – Programming / Design
   - xxcs – Art / Animation
@@ -52,4 +50,4 @@ Original ambient tracks and sound effects were designed to create an immersive a
 
 ## Installation
 Download the latest build from the Global Game Jam 2023 page or itch.io.  
-Extract the
+Extract/play
