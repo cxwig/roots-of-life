@@ -32,10 +32,9 @@ Each decision affects how the roots grow, branch, and survive while traveling do
 - Development Time: 48 hours  
 - Engine: [Specify engine used, e.g., Unity or Godot]  
 - Team:
-  - [Your Name] – Programming / Design
-  - [Teammate] – Art / Animation
-  - [Teammate] – Sound / Music
-  - [Teammate] – Game Design / Level Design
+  - Norman, Vasily – Programming / Design
+  - xxcs – Art / Animation
+  - Vasily  – Sound / Music
 
 ## Art and Style
 The game uses a close-up, hand-drawn 2D art style representing living organic movement.  
