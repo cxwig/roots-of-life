@@ -29,10 +29,7 @@ Each decision affects how the roots grow, branch, and survive while traveling do
 - Theme: Roots  
 - Development Time: 40 hours  
 - Engine: Unity
-- Team:
-  - Norman, Vasily – Programming / Design
-  - xxcs – Art / Animation
-  - Vasily  – Sound / Music
+
 
 ## Art and Style
 The game uses a close-up, hand-drawn 2D art style representing living organic movement.  
